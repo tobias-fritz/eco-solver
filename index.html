@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Species Input</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .species-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .species-box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .species-box h2 {
+            margin-top: 0;
+        }
+        .species-box input {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .species-box input::placeholder {
+            color: #999;
+        }
+        .calories-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .calories-container input {
+            width: calc(50% - 10px);
+        }
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+        #chart {
+            margin-top: 20px;
+            width: 100%;
+            height: 600px;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Species Input</h1>
+        <form class="species-form">
+            <div class="species-grid">
+                <!-- Species 1 -->
+                <div class="species-box">
+                    <h2>Species 1</h2>
+                    <input type="text" id="species1-name" name="species1-name" placeholder="Name">
+                    <div class="calories-container">
+                        <input type="number" id="species1-calories-provided" name="species1-calories-provided" placeholder="Cal. Provided">
+                        <input type="number" id="species1-calories-needed" name="species1-calories-needed" placeholder="Cal. Needed">
+                    </div>
+                    <input type="text" id="species1-eats" name="species1-eats" placeholder='eats (separate by ",")'>
+                    <input type="text" id="species1-eaten-by" name="species1-eaten-by" placeholder='eaten by (separate by ",")'>
+                </div>
+                <!-- Species 2 -->
+                <div class="species-box">
+                    <h2>Species 2</h2>
+                    <input type="text" id="species2-name" name="species2-name" placeholder="Name">
+                    <div class="calories-container">
+                        <input type="number" id="species2-calories-provided" name="species2-calories-provided" placeholder="Cal. Provided">
+                        <input type="number" id="species2-calories-needed" name="species2-calories-needed" placeholder="Cal. Needed">
+                    </div>
+                    <input type="text" id="species2-eats" name="species2-eats" placeholder='eats (separate by ",")'>
+                    <input type="text" id="species2-eaten-by" name="species2-eaten-by" placeholder='eaten by (separate by ",")'>
+                </div>
+                <!-- Repeat for species 3 to 8 -->
+                <div class="species-box">
+                    <h2>Species 3</h2>
+                    <input type="text" id="species3-name" name="species3-name" placeholder="Name">
+                    <div class="calories-container">
+                        <input type="number" id="species3-calories-provided" name="species3-calories-provided" placeholder="Cal. Provided">
+                        <input type="number" id="species3-calories-needed" name="species3-calories-needed" placeholder="Cal. Needed">
+                    </div>
+                    <input type="text" id="species3-eats" name="species3-eats" placeholder='eats (separate by ",")'>
+                    <input type="text" id="species3-eaten-by" name="species3-eaten-by" placeholder='eaten by (separate by ",")'>
+                </div>
+                <div class="species-box">
+                    <h2>Species 4</h2>
+                    <input type="text" id="species4-name" name="species4-name" placeholder="Name">
+                    <div class="calories-container">
+                        <input type="number" id="species4-calories-provided" name="species4-calories-provided" placeholder="Cal. Provided">
+                        <input type="number" id="species4-calories-needed" name="species4-calories-needed" placeholder="Cal. Needed">
+                    </div>
+                    <input type="text" id="species4-eats" name="species4-eats" placeholder='eats (separate by ",")'>
+                    <input type="text" id="species4-eaten-by" name="species4-eaten-by" placeholder='eaten by (separate by ",")'>
+                </div>
+                <div class="species-box">
+                    <h2>Species 5</h2>
+                    <input type="text" id="species5-name" name="species5-name" placeholder="Name">
+                    <div class="calories-container">
+                        <input type="number" id="species5-calories-provided" name="species5-calories-provided" placeholder="Cal. Provided">
+                        <input type="number" id="species5-calories-needed" name="species5-calories-needed" placeholder="Cal. Needed">
+                    </div>
+                    <input type="text" id="species5-eats" name="species5-eats" placeholder='eats (separate by ",")'>
+                    <input type="text" id="species5-eaten-by" name="species5-eaten-by" placeholder='eaten by (separate by ",")'>
+                </div>
+                <div class="species-box">
+                    <h2>Species 6</h2>
+                    <input type="text" id="species6-name" name="species6-name" placeholder="Name">
+                    <div class="calories-container">
+                        <input type="number" id="species6-calories-provided" name="species6-calories-provided" placeholder="Cal. Provided">
+                        <input type="number" id="species6-calories-needed" name="species6-calories-needed" placeholder="Cal. Needed">
+                    </div>
+                    <input type="text" id="species6-eats" name="species6-eats" placeholder='eats (separate by ",")'>
+                    <input type="text" id="species6-eaten-by" name="species6-eaten-by" placeholder='eaten by (separate by ",")'>
+                </div>
+                <div class="species-box">
+                    <h2>Species 7</h2>
+                    <input type="text" id="species7-name" name="species7-name" placeholder="Name">
+                    <div class="calories-container">
+                        <input type="number" id="species7-calories-provided" name="species7-calories-provided" placeholder="Cal. Provided">
+                        <input type="number" id="species7-calories-needed" name="species7-calories-needed" placeholder="Cal. Needed">
+                    </div>
+                    <input type="text" id="species7-eats" name="species7-eats" placeholder='eats (separate by ",")'>
+                    <input type="text" id="species7-eaten-by" name="species7-eaten-by" placeholder='eaten by (separate by ",")'>
+                </div>
+                <div class="species-box">
+                    <h2>Species 8</h2>
+                    <input type="text" id="species8-name" name="species8-name" placeholder="Name">
+                    <div class="calories-container">
+                        <input type="number" id="species8-calories-provided" name="species8-calories-provided" placeholder="Cal. Provided">
+                        <input type="number" id="species8-calories-needed" name="species8-calories-needed" placeholder="Cal. Needed">
+                    </div>
+                    <input type="text" id="species8-eats" name="species8-eats" placeholder='eats (separate by ",")'>
+                    <input type="text" id="species8-eaten-by" name="species8-eaten-by" placeholder='eaten by (separate by ",")'>
+                </div>
+            </div>
+            <button type="button" class="submit-button" onclick="plotFoodChain()">Submit</button>
+        </form>
+        <div id="chart"></div>
+    </div>
+    <script>
+        // Function to save input values to session storage
+        function saveInputToSessionStorage() {
+            const inputs = document.querySelectorAll('.species-box input');
+            inputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    sessionStorage.setItem(input.id, input.value);
+                });
+            });
+        }
+
+        // Function to load input values from session storage
+        function loadInputFromSessionStorage() {
+            const inputs = document.querySelectorAll('.species-box input');
+            inputs.forEach(input => {
+                const savedValue = sessionStorage.getItem(input.id);
+                if (savedValue) {
+                    input.value = savedValue;
+                }
+            });
+        }
+
+        // Function to plot the food chain
+        function plotFoodChain() {
+            const species = [];
+            for (let i = 1; i <= 8; i++) {
+                const name = document.getElementById(`species${i}-name`).value;
+                const caloriesProvided = document.getElementById(`species${i}-calories-provided`).value || "-";
+                const caloriesNeeded = document.getElementById(`species${i}-calories-needed`).value || "-";
+                const eats = document.getElementById(`species${i}-eats`).value.split(',').map(s => s.trim()).filter(s => s !== "");
+                const eatenBy = document.getElementById(`species${i}-eaten-by`).value.split(',').map(s => s.trim()).filter(s => s !== "");
+                if (name) {
+                    species.push({ name, caloriesProvided, caloriesNeeded, eats, eatenBy });
+                }
+            }
+
+            // Clear previous chart
+            d3.select("#chart").html("");
+
+            // Create SVG element
+            const svg = d3.select("#chart").append("svg")
+                .attr("width", "100%")
+                .attr("height", 600)
+                .call(d3.zoom().on("zoom", function (event) {
+                    svg.attr("transform", event.transform);
+                }))
+                .append("g");
+
+            // Define arrow markers for links
+            svg.append("defs").selectAll("marker")
+                .data(["end"])
+                .enter().append("marker")
+                .attr("id", "arrow")
+                .attr("viewBox", "0 -5 10 10")
+                .attr("refX", 15)
+                .attr("refY", 0)
+                .attr("markerWidth", 6)
+                .attr("markerHeight", 6)
+                .attr("orient", "auto")
+                .append("path")
+                .attr("d", "M0,-5L10,0L0,5")
+                .attr("fill", "#999");
+
+            // Create links
+            const links = [];
+            species.forEach(s => {
+                s.eats.forEach(e => {
+                    const targetSpecies = species.find(sp => sp.name === e);
+                    if (targetSpecies) {
+                        links.push({ source: s.name, target: e });
+                    }
+                });
+            });
+
+            // Create nodes
+            const nodes = species.map(s => ({ id: s.name, caloriesProvided: s.caloriesProvided, caloriesNeeded: s.caloriesNeeded }));
+
+            // Create simulation
+            const simulation = d3.forceSimulation(nodes)
+                .force("link", d3.forceLink(links).id(d => d.id).distance(150))
+                .force("charge", d3.forceManyBody().strength(-400))
+                .force("center", d3.forceCenter(document.querySelector("#chart").clientWidth / 2, 300))
+                .force("collision", d3.forceCollide().radius(80));
+
+            // Draw links
+            const link = svg.append("g")
+                .attr("class", "links")
+                .selectAll("line")
+                .data(links)
+                .enter().append("line")
+                .attr("stroke-width", 2)
+                .attr("stroke", "#999")
+                .attr("marker-end", "url(#arrow)");
+
+            // Draw nodes as rectangles with foreignObject for text
+            const node = svg.append("g")
+                .attr("class", "nodes")
+                .selectAll("g")
+                .data(nodes)
+                .enter().append("g")
+                .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended));
+
+            node.append("rect")
+                .attr("width", 120)
+                .attr("height", 60)
+                .attr("fill", "lightblue")
+                .attr("stroke", "blue")
+                .attr("stroke-width", 1);
+
+            node.append("foreignObject")
+                .attr("width", 120)
+                .attr("height", 60)
+                .append("xhtml:div")
+                .style("font", "14px 'Arial'")
+                .style("text-align", "center")
+                .html(d => `<div>${d.id}</div><div>Cal. Provided: ${d.caloriesProvided}</div><div>Cal. Needed: ${d.caloriesNeeded}</div>`);
+
+            // Update simulation
+            simulation
+                .nodes(nodes)
+                .on("tick", ticked);
+
+            simulation.force("link")
+                .links(links);
+
+            function ticked() {
+                link
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y);
+
+                node
+                    .attr("transform", d => `translate(${d.x - 60},${d.y - 30})`);
+            }
+
+            function dragstarted(event, d) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            }
+
+            function dragged(event, d) {
+                d.fx = event.x;
+                d.fy = event.y;
+            }
+
+            function dragended(event, d) {
+                if (!event.active) simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            }
+        }
+
+        // Call the functions to save and load input values
+        document.addEventListener('DOMContentLoaded', () => {
+            saveInputToSessionStorage();
+            loadInputFromSessionStorage();
+        });
+    </script>
+</body>
+</html>
