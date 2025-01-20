@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-
+from itertools import combinations
+from copy import deepcopy
 class Species:
     ''' A class to represent a species in a food chain.
 
@@ -105,3 +106,30 @@ def is_valid_food_chain(species_list: list) -> tuple:
                     return False, 0
     # all species have eaten, food chain is valid, calculate total remaining calories provided (for ranking if multiple valid chains)
     return True, sum([species.calories_provided for species in sorted_species_list])
+
+
+def get_valid_food_chains(species_list, food_chain_size, sorted_by_calories=True):
+
+    # Generate all possible combinations of species
+    list_combinations = list(combinations(species_list, food_chain_size))#
+
+    # Check if the food chain is valid
+    valid_food_chains = []
+    for combination in list_combinations:
+        tup = is_valid_food_chain(deepcopy(combination))
+
+        if tup[0]:
+            valid_food_chains.append([combination,tup[1]])
+    #
+
+    # Only consider unique food chains (i.e. the order of the species in the food chain does not matter)
+    unique_food_chains = []
+    for chain in valid_food_chains:
+        if chain not in unique_food_chains:
+            unique_food_chains.append(chain)
+
+    # Sort the valid food chains by their calories
+    if sorted_by_calories:
+        unique_food_chains = sorted(unique_food_chains, key=lambda x: x[1], reverse=True)
+        
+    return unique_food_chains
