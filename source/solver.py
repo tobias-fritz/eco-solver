@@ -109,6 +109,16 @@ def is_valid_food_chain(species_list: list) -> tuple:
 
 
 def get_valid_food_chains(species_list, food_chain_size, sorted_by_calories=True):
+    """ Generate all possible valid food chains of a given size.
+
+    Args:
+        species_list: A list of Species objects representing the species in the ecosystem.
+        food_chain_size: An integer representing the number of species in a food chain.
+        sorted_by_calories: A boolean indicating if the valid food chains should be sorted by calories or not.
+
+    Returns:
+        A list of valid food chains. Each food chain is a list of Species objects.
+    """
 
     # Generate all possible combinations of species
     list_combinations = list(combinations(species_list, food_chain_size))#
